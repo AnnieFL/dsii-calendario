@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Dsii-Calendario</title>
+</head>
+
+<body>
+    <h1 class="center">Calendario</h1>
+        <div class="containerCalendario">
+            <table class="calendario">
+                <tr>
+                    <th>Dom</th>
+                    <th>Seg</th>
+                    <th>Ter</th>
+                    <th>Qua</th>
+                    <th>Qui</th>
+                    <th>Sex</th>
+                    <th>Sab</th>
+                </tr>
+                <%for (let i=0; i<dias.length; i++) {%>
+                    <%if (i%7==0) {%>
+                        <tr>
+                    <%}%>
+                        <td class="<%=dias[i].class%>"><%=dias[i].dia%></td>
+                    <%if (i+1%7 == 0) {%>
+                        </tr>    
+                    <%}%>
+                <%}%>
+            </table>
+        </div>
+</body>
+
+</html>
