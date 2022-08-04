@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { Users } = require("../models/Users");
 const { Equipes } = require("../models/Equipes");
 const { Eventos } = require("../models/Eventos");
@@ -17,7 +17,8 @@ class ControllerGet {
     }
 
     async sair(req,res) {
-        req.session.destroy();
+        req.session.user = null;
+        req.session.equipe = null;
         
         return res.redirect('/')
        

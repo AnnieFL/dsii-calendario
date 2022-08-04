@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { Users } = require("../models/Users");
 const { Equipes } = require("../models/Equipes");
 const { Eventos } = require("../models/Eventos");
@@ -16,6 +16,12 @@ class ControllerPost {
                 email: email,
             }
         })
+
+        if(!conta) {
+
+            return res.redirect('/')
+
+        }
 
         const confere = bcrypt.compareSync(senha, conta.senha);
         if (confere) {
