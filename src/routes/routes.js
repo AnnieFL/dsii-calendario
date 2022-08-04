@@ -7,8 +7,10 @@ const routes = Router();
 const controllerGet = new ControllerGet();
 const controllerPost = new ControllerPost();
 
-routes.get('/', controllerGet.index);
+routes.get('/', controllerGet.login);
+routes.get('/sair', controllerGet.sair);
 routes.get('/calendario', controllerGet.calendario);
+routes.get('/inicio', controllerGet.index);
 routes.get('/login', controllerGet.login);
 routes.get('/equipes', controllerGet.equipes);
 routes.get('/equipe/:id', controllerGet.equipe);

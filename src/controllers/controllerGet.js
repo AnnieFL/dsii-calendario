@@ -11,21 +11,36 @@ class ControllerGet {
 
     async index(req, res) {
         if (!req.session.user) {
-            req.session.user = false
+            return res.redirect('/')
         }
-
         return res.render('index', { user: req.session.user });
     }
 
-    async login(req, res) {
-        let login = true;
+    async sair(req,res) {
+        req.session.destroy();
+        
+        return res.redirect('/')
+       
+    }
 
+    async login(req, res) {
+       
+        if (req.session.user) {
+            return res.redirect('/inicio')
+        }
+
+        let login = true;
+        let erro = "";
         if (req.query.cadastro == '') {
             login = false;
         }
 
+        if(req.query.erro) {
+            erro = req.query.erro;
+        }
 
-        return res.render('login', { login: login });
+
+        return res.render('login', { login: login, erro: erro });
     }
 
     async calendario(req, res) {
@@ -132,6 +147,9 @@ class ControllerGet {
 
         return res.render('equipes', { user: req.session.user, equipes: equipes })
     }
+
+
+
     
     async equipe(req, res) {
         if (!req.session.user) {

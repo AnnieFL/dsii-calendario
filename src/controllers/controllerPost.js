@@ -16,18 +16,48 @@ class ControllerPost {
                 email: email,
             }
         })
-        req.session.user = conta;
 
-        return res.redirect('/')
+        const confere = bcrypt.compareSync(senha, conta.senha);
+        if (confere) {
+            req.session.user = conta;
+            return res.redirect('/inicio')
+        } else {
+            return res.redirect('/login?erro=errologin');
+        }
     }
 
     async cadastro(req, res) {
         const {nome, email, senha} = req.body;
         
+
+        if(email == undefined || email == ""  || email.includes("@") == false) {
+            return res.redirect('/login?cadastro&erro=email');
+        }
+
+        if(nome == undefined || nome == "") {
+            return res.redirect('/login?cadastro&erro=nome');
+        }
+
+        if(senha == "" || senha == undefined) {
+            return res.redirect('/login?cadastro&erro=senha');
+        }
+
+        const senhaEncrypt = bcrypt.hashSync(senha, 10); 
+
+        const VerificarConta = await Users.findOne({
+            where: {
+                email: email,
+            }
+        })
+
+        if(VerificarConta) {
+            return res.redirect('/login?cadastro&erro=jaexiste');
+        }
+
         await Users.create({
             nome: nome,
             email: email,
-            senha: senha
+            senha: senhaEncrypt
         })
 
         const conta = await Users.findOne({
@@ -35,9 +65,10 @@ class ControllerPost {
                 email: email,
             }
         })
+
         req.session.user = conta;
 
-        return res.redirect('/');
+        return res.redirect('/inicio');
     }
 
     async addEquipe(req, res) {

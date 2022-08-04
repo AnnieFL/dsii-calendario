@@ -5,14 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    type="text/css" />
     <title>Dsii-Calendario</title>
 </head>
 <body>
-    INDEX
-    <a href="login">Login</a>
-    <a href="user">User</a>
-    <a href="calendario">Calendario</a>
-    <a href="equipes">Equipes</a>
-    <a href="addequipe">AddEquipes</a>
+        <div class="containerInicio">
+
+
+            <div class="containerimgInicio">
+
+               
+
+                    <img src="./imgs/logo_semfundo.png" alt="logo" />
+
+                
+
+            </div>
+
+            <div class="msgInicio">
+
+                <span> Seja Bem Vindo(a), <%= user.nome %>  </span>
+                
+                <a href="/sair"> Desconectar</a>
+
+            </div>
+
+
+            <div class="containerPesquisaInicio">
+
+                    <form action="pesquisarUser" method="post">
+
+                     
+
+                            <input type="text" name="search" placeholder="Pesquisar Usuarios..." />
+
+                            <div>
+
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            
+                            </div>
+
+                     
+
+                        <input type="submit" hidden id="btnForm" />
+
+                    </form>
+
+
+            </div>
+
+
+
+
+
+
+        </div>
 </body>
 </html>

@@ -33,3 +33,265 @@
 .hoje {
     font-weight: bolder;
 }
+
+
+/*  css adicionado por Luan  */
+
+input:focus-visible {
+
+    outline: none
+} 
+body{
+    margin: 0px !important;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+
+.errospan {
+    margin-top: -8px;
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.containerLogin {
+    flex: 1;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.containerImgLogin > img {
+    object-fit: contain;
+    max-height: 350px;
+    margin-bottom: -50px;
+    margin-top: -50px;
+}
+
+.containerImgLogin {
+    margin-top: 1.5%;
+}
+
+.containerFormsLogin {
+    width: 29%;
+    padding: 10px;
+    min-width: 250px;
+    border: 5px solid #44B5C8;
+    border-radius: 15px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.containerTitutloForm{
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+}
+
+.containerTitutloForm > span {
+    font-size: 24px;
+    color: #44B5C8;
+    font-family: 'heveric';
+}
+
+.containerFormsLogin > form > #btnForm {
+    display: none;
+}
+
+.containerFormsLogin > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerFormsLogin > form > div {
+    display: flex;
+    width: 72%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.containerFormsLogin > form > div > :first-child {
+    background-color: #FF3847;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.containerFormsLogin > form > div > :first-child > i {
+    font-size: 24px;
+    color: white;
+} 
+
+.containerFormsLogin > form > div > :last-child {
+
+    height: 37px;
+    width: 82%;
+    border: 3px solid #FF3847 ;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
+.ButaoFormLoginRegistro {
+
+    width: 60%;
+    background-color: #1FB5CE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    border-radius: 3px;
+    margin-top: 15px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.ButaoFormLoginRegistro > span {
+    user-select: none;
+    word-break: break-all;
+    font-size: 20px;
+    color: wheat;
+    font-weight: 700;
+}
+
+.ButaoFormLoginRegistro:active {
+    opacity: 0.7;
+}
+
+.containerMsgFinal {
+    margin-top: 10px;
+}
+
+.containerMsgFinal > span {
+    color:  #d71818; 
+    font-weight: 600;
+}
+
+.containerMsgFinal > a {
+    color: #44B5C8;
+}
+
+
+.containerInicio {
+
+    background-color: #23B9D2;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+   
+}
+
+
+.containerimgInicio {
+    margin-top: 2%;
+    background-color: white;
+    height: 200px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.containerimgInicio > img {
+    max-height: 250px;
+    margin: -25px;
+}
+
+
+.containerPesquisaInicio {
+    
+    margin-top: 20px;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+}
+
+.containerPesquisaInicio > form  {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: #FF3847 2px solid;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.containerPesquisaInicio > form  {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.containerPesquisaInicio > form > input {
+    width: 91%;
+    height: 30px;
+}
+
+.containerPesquisaInicio > form > div {
+    width: 12%;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF3847;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-right: -5px;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+.containerPesquisaInicio > form > div > i {
+    color: white;
+    font-size: 20px;
+}
+
+
+.containerPesquisaInicio > form > div:active {
+        opacity: 0.7;
+    
+}
+
+.msgInicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.msgInicio > span {
+    color: #FFF;
+    margin-top: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.msgInicio > a {
+    color: #000;
+    margin-top: 2px;
+}
