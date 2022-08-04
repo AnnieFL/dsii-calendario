@@ -1,59 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-    type="text/css" />
+        type="text/css" />
     <title>Dsii-Calendario</title>
 </head>
+
 <body>
-        <div class="containerInicio">
+    <div class="containerInicio">
 
 
-            <div class="containerimgInicio">
-
-               
-
-                    <img src="./imgs/logo_semfundo.png" alt="logo" />
-
-                
-
-            </div>
-
-            <div class="msgInicio">
-
-                <span> Seja Bem Vindo(a), <%= user.nome %>  </span>
-                
-                <a href="/sair"> Desconectar</a>
-
-            </div>
+        <div class="containerimgInicio">
 
 
-            <div class="containerPesquisaInicio">
 
-                    <form action="pesquisarUser" method="post">
-
-                     
-
-                            <input type="text" name="search" placeholder="Pesquisar Usuarios..." />
-
-                            <div>
-
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            
-                            </div>
-
-                     
-
-                        <input type="submit" hidden id="btnForm" />
-
-                    </form>
+            <img src="./imgs/logo_semfundo.png" alt="logo" />
 
 
-            </div>
+
+        </div>
+
+        <div class="msgInicio">
+
+            <span> Seja Bem Vindo(a), <%= user.nome %> </span>
+
+            <a href="/sair"> Desconectar</a>
+
+        </div>
+
+
+        <div class="containerPesquisaInicio">
+
+            <form action="pesquisarUser" method="post">
+
+
+
+                <input type="text" name="search" placeholder="Pesquisar Usuarios..." />
+
+                <div>
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </div>
+
+
+
+                <input type="submit" hidden id="btnForm" />
+
+            </form>
+
+
+        </div>
+
+
+
+        <div class="containerMenusInicio">
+
+
+            <a href="/meuperfil">
+
+
+                <i class="fa-solid fa-user-gear"></i>
+
+
+                <span> Meu Perfil </span>
+
+
+
+
+
+            </a>
+
+
+
+            <a href="/equipes">
+
+
+                <i class="fa-solid fa-chalkboard-user"></i>
+
+
+                <span> Meus Times </span>
+
+
+
+
+
+            </a>
+
+
+
+            <a href="/calendario">
+
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+
+                <span> Calendario </span>
+
+
+
+
+
+            </a>
+
+
+            <a href="/meuperfil">
+
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+
+                <span> Convites </span>
+
+
+
+
+
+            </a>
 
 
 
@@ -61,5 +129,10 @@
 
 
         </div>
+
+
+
+    </div>
 </body>
+
 </html>

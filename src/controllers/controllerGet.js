@@ -137,7 +137,6 @@ class ControllerGet {
                 });
             }
 
-            eventosDias.map((e) => console.log(dayjs(e.data).format('DD-MM-YYYY')));
             
             diaEvento = eventosDias.filter((e) => (dayjs(e.dataValues.data).format('DD') == i));
             if (diaEvento[0]) {
@@ -155,6 +154,46 @@ class ControllerGet {
 
 
         return res.render('calendario', { user: req.session.user, dias: dias });
+    }
+
+    async meuPerfil(req, res) {
+
+        if (!req.session.user) {
+            return res.redirect('/');
+        }
+
+        const times = await Equipes.findAll({
+            where: {
+                dono: req.session.user.id,
+            }
+        })
+
+        const minhasSolitacoes = await UsersEquipes.findAll({
+            where: {
+                aceito: true
+            }
+        })
+
+        const meustimes = minhasSolitacoes.map(solitacao => {
+
+            let times_existentes = times.filter(time => time.id == solitacao.equipeId)[0]
+
+            if (times_existentes) {
+                return times_existentes
+            }
+
+        })
+
+
+
+
+        console.log(req.session.user)
+        console.log(meustimes)
+
+
+        return res.render('meuperfil', { user: req.session.user, meustimes: meustimes })
+
+
     }
 
     async equipes(req, res) {
@@ -218,12 +257,28 @@ class ControllerGet {
     }
 
     async evento(req, res) {
-        if (!req.session.user || !req.session.equipe) {
+        if (!req.session.user) {
             return res.redirect('/');
         }
         const {id} = req.params;
+
+        
         if (id == 0) {
-            return res.render('evento', {user: req.session.user, equipe: req.session.equipe, evento: false})
+            const usersEquipes = await UsersEquipes.findAll({
+                where: {
+                    userId: req.session.user.id
+                }
+            })
+
+            const equipesId = usersEquipes.map((e) => e.equipeId);
+
+            const equipes = await Equipes.findAll({
+                where: {
+                    id: equipesId
+                }
+            })
+
+            return res.render('evento', {user: req.session.user, equipes: equipes, evento: false})
         }
 
         const evento = await Eventos.findOne({
@@ -245,7 +300,7 @@ class ControllerGet {
     }
 
     async addEvento(req, res) {
-        if (!req.session.user || !req.session.equipe) {
+        if (!req.session.user) {
             return res.redirect('/');
         }
         const {id} = req.params;
@@ -256,6 +311,8 @@ class ControllerGet {
             }
         })
 
+        req.session.equipe = evento.equipeId
+        
         return res.render('addevento', {user: req.session.user, equipe: req.session.equipe, evento: evento});
     }
 }

@@ -23,6 +23,11 @@
             <input type="date" name="data">
             <input type="time" name="tempo">
             <input type="text" name="descricao">
+            <select name="equipe">
+                <%equipes.map((e) => {%>
+                    <option value="<%=e.id%>"><%=e.nome%></option>
+                <%})%>
+            </select>
             <input type="submit">
         </form>
     <%}%>

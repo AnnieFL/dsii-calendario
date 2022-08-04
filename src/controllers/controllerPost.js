@@ -108,16 +108,16 @@ class ControllerPost {
     }
 
     async addEvento(req, res) {
-        if (!req.session.user || !req.session.equipe) {
+        if (!req.session.user) {
             return res.redirect('/');
         }
 
-        const {data, tempo, descricao} = req.body
+        const {data, tempo, descricao, equipe} = req.body
 
         await Eventos.create({
             data: `${data} ${tempo}`,
             descricao: descricao,
-            equipeId: req.session.equipe.id
+            equipeId: equipe
         })
 
         req.session.equipe = null;
