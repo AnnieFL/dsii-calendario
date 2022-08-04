@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/main.css">
     <title>Dsii-Calendario</title>
 </head>
 <body>
+    <%if (evento) {%>
     <h1 class="center">Eventos de <%=equipe.nome%></h1>
-    <ul>
-        <%eventos.map((e) => {%>
-            <li style="color: <%=e.cor%>"><a class='nonlink' href="evento/<%=e.id%>"><%=e.descricao%></a></li>
-        <%})%>
-    </ul>
-    <a href="evento/0">Criar</a>
+
+    <div>
+        <p><%=evento.data%></p>
+        <p><%=evento.descricao%></p>
+        <%if (equipe.dono == user.id) {%>
+            <a href="/addevento/<%=evento.id%>">Editar</a>
+        <%}%>
+    </div>
+    <%} else {%>
+        <form action="/addevento" method="post">
+            <input type="date" name="data">
+            <input type="time" name="tempo">
+            <input type="text" name="descricao">
+            <input type="submit">
+        </form>
+    <%}%>
+        
 </body>
 </html>

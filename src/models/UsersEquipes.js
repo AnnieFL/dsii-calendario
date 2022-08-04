@@ -4,7 +4,9 @@ const { sequelizeCon } = require('../config/db-config');
 
 class UsersEquipes extends Model {}
     
-UsersEquipes.init({}, { 
+UsersEquipes.init({
+    aceito: DataTypes.BOOLEAN,
+}, { 
     sequelize: sequelizeCon, 
     schema: 'calendario',
     modelName: 'usersEquipes'

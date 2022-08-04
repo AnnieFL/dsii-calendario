@@ -45,9 +45,9 @@ class ControllerGet {
     }
 
     async calendario(req, res) {
-        if (!req.session.user) {
+/*        if (!req.session.user) {
             return res.redirect('/')
-        }
+        }*/
         
         let data = new Date()
         let month = data.getMonth();
@@ -56,11 +56,10 @@ class ControllerGet {
         
         data.setDate(1);
 
-        const eventos = Eventos.findAll({});
-
+        const eventos = await Eventos.findAll();
 
         //AINDA TENTANDO COLOCAR OS EVENTOS NO CALENDARIO
-        //const eventosDias = eventos.filter((e) => { e.data.toString('MM-yyyy') == `${month}-${year}`});
+        const eventosDias = eventos.filter((e) => { e.data.toString('MM-yyyy') == `${month}-${year}`});
 
         const ultimoDia = new Date(
             data.getFullYear(),
@@ -158,7 +157,7 @@ class ControllerGet {
         }
         const {id} = req.params;
         
-        const equipe = Equipes.findOne({
+        const equipe = await Equipes.findOne({
             where: {
                 id: id
             }
@@ -183,12 +182,12 @@ class ControllerGet {
     }
 
     async evento(req, res) {
-        if (!req.session.user) {
+        if (!req.session.user || !req.session.equipe) {
             return res.redirect('/');
         }
         const {id} = req.params;
         if (id == 0) {
-            return res.render('evento', {user: req.session.user, equipe: req.session.equipe})
+            return res.render('evento', {user: req.session.user, equipe: req.session.equipe, evento: false})
         }
 
         const evento = await Eventos.findOne({
@@ -207,6 +206,21 @@ class ControllerGet {
         
         return res.render('evento', { user: req.session.user, equipe: equipe, evento: evento });
 
+    }
+
+    async addEvento(req, res) {
+        if (!req.session.user || !req.session.equipe) {
+            return res.redirect('/');
+        }
+        const {id} = req.params;
+
+        const evento = await Eventos.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        return res.render('addevento', {user: req.session.user, equipe: req.session.equipe, evento: evento});
     }
 }
 

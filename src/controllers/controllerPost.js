@@ -105,6 +105,24 @@ class ControllerPost {
 
         return res.redirect('/');
     }
+
+    async addEvento(req, res) {
+        if (!req.session.user || !req.session.equipe) {
+            return res.redirect('/');
+        }
+
+        const {data, tempo, descricao} = req.body
+
+        await Eventos.create({
+            data: `${data} ${tempo}`,
+            descricao: descricao,
+            equipeId: req.session.equipe.id
+        })
+
+        req.session.equipe = null;
+
+        res.redirect('/');
+    }
 }
 
 module.exports = ControllerPost;

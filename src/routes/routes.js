@@ -15,10 +15,13 @@ routes.get('/login', controllerGet.login);
 routes.get('/equipes', controllerGet.equipes);
 routes.get('/equipe/:id', controllerGet.equipe);
 routes.get('/addequipe', controllerGet.addEquipe);
+routes.get('/evento/:id', controllerGet.evento);
+routes.get('/addevento/:id', controllerGet.addEvento);
 
 routes.post('/login', controllerPost.login)
 routes.post('/cadastro', controllerPost.cadastro)
 routes.post('/addequipe', controllerPost.addEquipe)
+routes.post('/addevento', controllerPost.addEvento)
 
 
 module.exports = routes;
