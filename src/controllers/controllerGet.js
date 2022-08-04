@@ -60,7 +60,7 @@ class ControllerGet {
 
 
         //AINDA TENTANDO COLOCAR OS EVENTOS NO CALENDARIO
-        const eventosDias = eventos.filter((e) => { e.data.toString('MM-yyyy') == `${month}-${year}`});
+        //const eventosDias = eventos.filter((e) => { e.data.toString('MM-yyyy') == `${month}-${year}`});
 
         const ultimoDia = new Date(
             data.getFullYear(),
