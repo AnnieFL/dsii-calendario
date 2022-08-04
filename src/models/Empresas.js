@@ -2,17 +2,14 @@ const { DataTypes, Model } = require('sequelize');
 
 const { sequelizeCon } = require('../config/db-config');
 
-class Users extends Model {}
+class Empresas extends Model {}
     
-Users.init({
-    email: DataTypes.STRING,
+Empresas.init({
     nome: DataTypes.STRING,
-    senha: DataTypes.STRING,
-    foto: DataTypes.STRING,
 }, { 
     sequelize: sequelizeCon, 
     schema: 'calendario',
-    modelName: 'users'
+    modelName: 'empresas'
 });
 
-module.exports = { Users };
+module.exports = { Empresas };

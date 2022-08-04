@@ -10,8 +10,13 @@ const controllerPost = new ControllerPost();
 routes.get('/', controllerGet.index);
 routes.get('/calendario', controllerGet.calendario);
 routes.get('/login', controllerGet.login);
+routes.get('/equipes', controllerGet.equipes);
+routes.get('/equipe/:id', controllerGet.equipe);
+routes.get('/addequipe', controllerGet.addEquipe);
 
 routes.post('/login', controllerPost.login)
+routes.post('/cadastro', controllerPost.cadastro)
+routes.post('/addequipe', controllerPost.addEquipe)
 
 
 module.exports = routes;

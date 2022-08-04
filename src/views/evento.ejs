@@ -8,11 +8,12 @@
     <title>Dsii-Calendario</title>
 </head>
 <body>
-    INDEX
-    <a href="login">Login</a>
-    <a href="user">User</a>
-    <a href="calendario">Calendario</a>
-    <a href="equipes">Equipes</a>
-    <a href="addequipe">AddEquipes</a>
+    <h1 class="center">Eventos de <%=equipe.nome%></h1>
+    <ul>
+        <%eventos.map((e) => {%>
+            <li style="color: <%=e.cor%>"><a class='nonlink' href="evento/<%=e.id%>"><%=e.descricao%></a></li>
+        <%})%>
+    </ul>
+    <a href="evento/0">Criar</a>
 </body>
 </html>
