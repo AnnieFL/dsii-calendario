@@ -17,10 +17,6 @@ class ControllerPost {
             }
         })
 
-        if (!conta) {
-            return res.redirect('/inicio')
-        }
-
         const confere = bcrypt.compareSync(senha, conta.senha);
         if (confere) {
             req.session.user = conta;
