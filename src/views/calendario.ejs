@@ -26,7 +26,7 @@
                     <%if (i%7==0) {%>
                         <tr>
                     <%}%>
-                        <td class="<%=dias[i].class%>"><%=dias[i].dia%></td>
+                        <td class="<%=dias[i].class%><%if (dias[i].evento) {%>" style="background-color:<%=dias[i].evento.cor%>"<%}%>"><%=dias[i].dia%></td>
                     <%if (i+1%7 == 0) {%>
                         </tr>    
                     <%}%>

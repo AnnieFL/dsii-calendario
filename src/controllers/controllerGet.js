@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const dayjs = require('dayjs');
+
 const { Users } = require("../models/Users");
 const { Equipes } = require("../models/Equipes");
 const { Eventos } = require("../models/Eventos");
@@ -8,46 +10,46 @@ const { UsersEquipes } = require("../models/UsersEquipes");
 
 
 class ControllerGet {
-
+    
     async index(req, res) {
         if (!req.session.user) {
             return res.redirect('/')
         }
         return res.render('index', { user: req.session.user });
     }
-
+    
     async sair(req,res) {
         req.session.user = null;
         req.session.equipe = null;
         
         return res.redirect('/')
-       
+        
     }
-
+    
     async login(req, res) {
-       
+        
         if (req.session.user) {
             return res.redirect('/inicio')
         }
-
+        
         let login = true;
         let erro = "";
         if (req.query.cadastro == '') {
             login = false;
         }
-
+        
         if(req.query.erro) {
             erro = req.query.erro;
         }
 
-
+        
         return res.render('login', { login: login, erro: erro });
     }
 
     async calendario(req, res) {
-/*        if (!req.session.user) {
+        if (!req.session.user) {
             return res.redirect('/')
-        }*/
+        }
         
         let data = new Date()
         let month = data.getMonth();
@@ -55,12 +57,40 @@ class ControllerGet {
         let year = data.getFullYear();
         
         data.setDate(1);
+        
+        const usersEquipes = await UsersEquipes.findAll({
+            where: {
+                userId: req.session.user.id,
+                aceito: true
+            }
+        })
 
-        const eventos = await Eventos.findAll();
+        const equipesId = usersEquipes.map((e) => e.equipeId)
 
-        //AINDA TENTANDO COLOCAR OS EVENTOS NO CALENDARIO
-        const eventosDias = eventos.filter((e) => { e.data.toString('MM-yyyy') == `${month}-${year}`});
+        const equipes = await Equipes.findAll({
+            where: {
+                id: equipesId
+            }
+        })
+        
+        const eventos = await Eventos.findAll({
+            where: {
+                equipeId: equipesId
+            }
+        });
 
+        const evento_estruturado = eventos.map ( evento => {
+
+            let equipe = equipes.filter(elemento => elemento.id == evento.equipeId)[0]
+            if(equipe) {
+                let evento_ajustado = {...evento, cor: equipe.cor}
+                return evento_ajustado
+            }
+            
+        })
+        
+        const eventosDias = evento_estruturado.filter((e) => ( dayjs(e.dataValues.data).format('MM-YYYY') == dayjs(data).format('MM-YYYY')));
+        
         const ultimoDia = new Date(
             data.getFullYear(),
             data.getMonth() + 1,
@@ -83,7 +113,9 @@ class ControllerGet {
 
         const proximosDias = 7 - ultimoDiaIndex - 1;
 
-        const dias = [];
+        let dias = [];
+
+        let diaEvento = [];
 
         for (let x = primeiroDiaIndex; x > 0; x--) {
             dias.push({
@@ -93,10 +125,7 @@ class ControllerGet {
         }
 
         for (let i = 1; i <= ultimoDia; i++) {
-            if (
-                i === new Date().getDate() &&
-                data.getMonth() === new Date().getMonth()
-            ) {
+            if (i === new Date().getDate() && data.getMonth() === new Date().getMonth()) {
                 dias.push({
                     dia: i,
                     class: 'hoje'
@@ -106,6 +135,13 @@ class ControllerGet {
                     dia: i,
                     class: 'mesAtual'
                 });
+            }
+
+            eventosDias.map((e) => console.log(dayjs(e.data).format('DD-MM-YYYY')));
+            
+            diaEvento = eventosDias.filter((e) => (dayjs(e.dataValues.data).format('DD') == i));
+            if (diaEvento[0]) {
+                dias[dias.length-1] = {...dias[dias.length-1], evento: diaEvento[0]}
             }
         }
 

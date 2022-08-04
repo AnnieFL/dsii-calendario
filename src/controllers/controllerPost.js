@@ -94,7 +94,8 @@ class ControllerPost {
             where: {
                 nome: nome,
                 cor: cor,
-                dono: req.session.user.id
+                dono: req.session.user.id,
+                ativo: true
             }
         })
 
