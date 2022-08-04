@@ -11,13 +11,15 @@ class ControllerPost {
     async login(req, res) {
         const {email, senha} = req.body;
 
-        console.log(email);
-        console.log(senha);
         const conta = await Users.findOne({
             where: {
                 email: email,
             }
         })
+
+        if (!conta) {
+            return res.redirect('/inicio')
+        }
 
         const confere = bcrypt.compareSync(senha, conta.senha);
         if (confere) {
