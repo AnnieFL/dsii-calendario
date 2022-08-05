@@ -1,11 +1,11 @@
 const bcrypt = require('bcryptjs');
 const dayjs = require('dayjs');
+require('dayjs/locale/de')
 
 const { Users } = require("../models/Users");
 const { Equipes } = require("../models/Equipes");
 const { Eventos } = require("../models/Eventos");
 const { Empresas } = require("../models/Empresas");
-const { EquipesEmpresas } = require("../models/EquipesEmpresas");
 const { UsersEquipes } = require("../models/UsersEquipes");
 
 
@@ -15,7 +15,14 @@ class ControllerGet {
         if (!req.session.user) {
             return res.redirect('/')
         }
-        return res.render('index', { user: req.session.user });
+
+        let erro = "";
+        if (req.query.erro) {
+            erro = req.query.erro;
+        }
+
+
+        return res.render('index', { user: req.session.user, erro: erro });
     }
     
     async sair(req,res) {
@@ -42,14 +49,19 @@ class ControllerGet {
             erro = req.query.erro;
         }
 
+        const empresas = await Empresas.findAll();
         
-        return res.render('login', { login: login, erro: erro });
+        return res.render('login', { login: login, erro: erro, empresas: empresas });
     }
 
     async calendario(req, res) {
         if (!req.session.user) {
             return res.redirect('/')
         }
+        
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+
+        const {id} = req.params;
         
         let data = new Date()
         let month = data.getMonth();
@@ -60,10 +72,22 @@ class ControllerGet {
         
         const usersEquipes = await UsersEquipes.findAll({
             where: {
-                userId: req.session.user.id,
+                userId: id,
                 aceito: true
             }
         })
+
+        const userPrincipal = await Users.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        
+
+        if (!userPrincipal) {
+            res.redirect('/')
+        }
 
         const equipesId = usersEquipes.map((e) => e.equipeId)
 
@@ -153,7 +177,7 @@ class ControllerGet {
 
 
 
-        return res.render('calendario', { user: req.session.user, dias: dias });
+        return res.render('calendario', { user: req.session.user, dias: dias, userPrincipal: userPrincipal, mes: meses[parseInt(dayjs(data).format('M'))-1] });
     }
 
     async meuPerfil(req, res) {
@@ -183,12 +207,6 @@ class ControllerGet {
             }
 
         })
-
-
-
-
-        console.log(req.session.user)
-        console.log(meustimes)
 
 
         return res.render('meuperfil', { user: req.session.user, meustimes: meustimes })
@@ -310,6 +328,9 @@ class ControllerGet {
                 id: id
             }
         })
+
+        evento.tempo = dayjs(evento.data).format('hh:mm')
+        evento.date = dayjs(evento.data).format('YYYY-MM-DD')
 
         req.session.equipe = evento.equipeId
         

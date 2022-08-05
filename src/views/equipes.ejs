@@ -11,7 +11,7 @@
     <h1 class="center">Equipes de <%=user.nome%></h1>
     <ul>
         <%equipes.map((e) => {%>
-            <li style="color: <%=e.cor%>"><a class='nonlink' href="equipe/<%=e.id%>"><%=e.nome%></a></li>
+            <li style="color: <%=e.cor%>"><a class='nonlink' href="/equipe/<%=e.id%>"><%=e.nome%></a></li>
         <%})%>
     </ul>
 </body>

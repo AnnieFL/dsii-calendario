@@ -2,6 +2,7 @@
     text-align: center;
 }
 
+
 .containerCalendario {
     display: flex;
     flex-direction: row;
@@ -32,13 +33,14 @@
 
 .hoje {
     font-weight: bolder;
+    text-decoration: underline;
 }
 
 
 /*  css adicionado por Luan  */
 
 input:focus-visible {
-
+    
     outline: none
 } 
 body{
@@ -191,14 +193,14 @@ body{
 
 
 .containerInicio {
-
+    
     background-color: #23B9D2;
     width: 100vw;
     min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
-   
+    
 }
 
 
@@ -263,7 +265,7 @@ body{
     margin-right: -5px;
     cursor: pointer;
     user-select: none;
-
+    
 }
 
 .containerPesquisaInicio > form > div > i {
@@ -273,7 +275,7 @@ body{
 
 
 .containerPesquisaInicio > form > div:active {
-        opacity: 0.7;
+    opacity: 0.7;
     
 }
 
@@ -309,12 +311,12 @@ body{
     align-content: space-between;
     flex-direction: row;
     flex-wrap: wrap;
-
+    
 }
 
 
 .containerMenusInicio > a {
-
+    
     width: 45%;
     display: flex;
     flex-direction: column;
@@ -333,7 +335,7 @@ body{
 
 
 .containerMenusInicio > a > span {
-
+    
     color: white;
     font-size: 18px;
     font-weight: 700;
@@ -344,4 +346,12 @@ body{
     color: white;
     font-size: 50px;
     margin-bottom: 20px;
+}
+
+.red {
+    color: red !important;
+}
+
+.tdLink {
+    cursor: pointer;
 }

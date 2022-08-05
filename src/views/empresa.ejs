@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        type="text/css" />
+    <title>Dsii-Calendario</title>
+</head>
+
+<body>
+    <div class="containerLogin">
+        <div class="containerImgLogin">
+
+            <img src="./imgs/logo_fundobranco.png" alt="logo" />
+
+        </div>
+
+        <div class="containerFormsLogin">
+
+            <div class="containerTitutloForm">
+                <span>
+                    Empresa
+                </span>
+            </div>
+                <form action="/addempresa" method="post">
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-asterisk"></i>
+                        </div>
+                        <input type="text" name="nome" placeholder="nome">
+                        <input type="hidden" name="userId" value="<%=user%>">
+                    </div>
+                    
+                    <input type="submit" id="btnForm">
+                </form>
+
+    
+
+                    <div class="ButaoFormLoginRegistro">
+                         <span>
+                            Criar
+                        </span>
+                    </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        let btn = document.querySelector("#btnForm")
+        let click = document.querySelector(".ButaoFormLoginRegistro")
+        click.addEventListener('click', () => {
+            btn.click()
+        })
+
+    </script>
+
+</body>
+
+</html>
