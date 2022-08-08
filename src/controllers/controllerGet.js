@@ -50,23 +50,36 @@ class ControllerGet {
         if (!req.session.user) {
             return res.redirect('/')
         }
+        
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
-      
-
-
+        const {id} = req.params;
+        
         let data = new Date()
         let month = data.getMonth();
         month += 1;
         let year = data.getFullYear();
-
+        
         data.setDate(1);
-
+        
         const usersEquipes = await UsersEquipes.findAll({
             where: {
-                userId: req.session.user.id,
+                userId: id,
                 aceito: true
             }
         })
+
+        const userPrincipal = await Users.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        
+
+        if (!userPrincipal) {
+            res.redirect('/')
+        }
 
         const equipesId = usersEquipes.map((e) => e.equipeId)
 
@@ -75,25 +88,25 @@ class ControllerGet {
                 id: equipesId
             }
         })
-
+        
         const eventos = await Eventos.findAll({
             where: {
                 equipeId: equipesId
             }
         });
 
-        const evento_estruturado = eventos.map(evento => {
+        const evento_estruturado = eventos.map ( evento => {
 
             let equipe = equipes.filter(elemento => elemento.id == evento.equipeId)[0]
-            if (equipe) {
-                let evento_ajustado = { ...evento, cor: equipe.cor }
+            if(equipe) {
+                let evento_ajustado = {...evento, cor: equipe.cor}
                 return evento_ajustado
             }
-
+            
         })
-
-        const eventosDias = evento_estruturado.filter((e) => (dayjs(e.dataValues.data).format('MM-YYYY') == dayjs(data).format('MM-YYYY')));
-
+        
+        const eventosDias = evento_estruturado.filter((e) => ( dayjs(e.dataValues.data).format('MM-YYYY') == dayjs(data).format('MM-YYYY')));
+        
         const ultimoDia = new Date(
             data.getFullYear(),
             data.getMonth() + 1,
@@ -140,10 +153,10 @@ class ControllerGet {
                 });
             }
 
-
+            
             diaEvento = eventosDias.filter((e) => (dayjs(e.dataValues.data).format('DD') == i));
             if (diaEvento[0]) {
-                dias[dias.length - 1] = { ...dias[dias.length - 1], evento: diaEvento[0] }
+                dias[dias.length-1] = {...dias[dias.length-1], evento: diaEvento[0]}
             }
         }
 
@@ -156,8 +169,9 @@ class ControllerGet {
 
 
 
-        return res.render('calendario', { user: req.session.user, dias: dias });
+        return res.render('calendario', { user: req.session.user, dias: dias, userPrincipal: userPrincipal, mes: meses[parseInt(dayjs(data).format('M'))-1] });
     }
+
 
     async meuPerfil(req, res) {
 
@@ -382,7 +396,7 @@ class ControllerGet {
         if (!req.session.user) {
             return res.redirect('/');
         }
-        const { id } = req.params;
+        const {id} = req.params;
 
         const evento = await Eventos.findOne({
             where: {
@@ -390,9 +404,12 @@ class ControllerGet {
             }
         })
 
-        req.session.equipe = evento.equipeId
+        evento.tempo = dayjs(evento.data).format('hh:mm')
+        evento.date = dayjs(evento.data).format('YYYY-MM-DD')
 
-        return res.render('addevento', { user: req.session.user, equipe: req.session.equipe, evento: evento });
+        req.session.equipe = evento.equipeId
+        
+        return res.render('addevento', {user: req.session.user, equipe: req.session.equipe, evento: evento});
     }
 
     async convites (req,res) {

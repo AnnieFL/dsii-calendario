@@ -9,7 +9,7 @@ const controllerPost = new ControllerPost();
 
 routes.get('/', controllerGet.login);
 routes.get('/sair', controllerGet.sair);
-routes.get('/calendario', controllerGet.calendario);
+routes.get('/calendario/:id', controllerGet.calendario);
 routes.get('/inicio', controllerGet.index);
 routes.get('/meuperfil', controllerGet.meuPerfil);
 routes.get('/login', controllerGet.login);
@@ -27,7 +27,10 @@ routes.post('/login', controllerPost.login)
 routes.post('/cadastro', controllerPost.cadastro)
 routes.post('/addequipe', controllerPost.addEquipe)
 routes.post('/addevento', controllerPost.addEvento)
+routes.post('/editevento', controllerPost.editEvento)
 routes.post('/addmember', controllerPost.addMembro)
 routes.post('/changefoto', controllerPost.changefoto)
+
+routes.get('*', controllerGet.index);
 
 module.exports = routes;

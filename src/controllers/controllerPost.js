@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { Users } = require("../models/Users");
 const { Equipes } = require("../models/Equipes");
 const { Eventos } = require("../models/Eventos");
+const { Op } = require("sequelize");
 const fs = require('fs').promises
 const { Empresas } = require("../models/Empresas");
 const { EquipesEmpresas } = require("../models/EquipesEmpresas");
@@ -213,6 +214,63 @@ class ControllerPost {
         await user.save();
 
         return  res.redirect('/meuperfil')
+    }
+
+    async editEvento(req, res) {
+        if (!req.session.user || !req.session.equipe) {
+            return res.redirect('/');
+        }
+
+        const { data, tempo, descricao, id } = req.body
+
+        const users = await UsersEquipes.findAll({
+            where: {
+                equipeId: req.session.equipe
+            }
+        })
+
+
+        const usersId = users.map((e) => (
+            e.userId
+        ))
+
+
+        const equipes = await UsersEquipes.findAll({
+            where: {
+                userId: usersId
+            }
+        })
+
+
+        const equipesId = equipes.map((e) => (
+            e.equipeId
+        ))
+
+        const eventoCheck = await Eventos.findAll({
+            where: {
+                equipeId: equipesId,
+                data: `${data} ${tempo}`,
+                [Op.not]: { id: id }
+            }
+        })
+
+        if (eventoCheck[0]) {
+            return res.redirect('/inicio?erro=erroEvento')
+        }
+
+        await Eventos.update({
+            data: `${data} ${tempo}`,
+            descricao: descricao
+        },
+            {
+                where: {
+                    id: id
+                }
+            })
+
+        req.session.equipe = null;
+
+        res.redirect('/');
     }
 
 

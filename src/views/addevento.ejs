@@ -9,9 +9,11 @@
 </head>
 <body>
     <h1 class="center"><%=evento.descricao%></h1>
-    <form action="editevento" method="post">
-        <input type="data" name="data" value="">
-        <input type="color" name="cor" placeholder="cor">
+    <form action="/editevento" method="post">
+        <input type="date" name="data" value="<%=evento.date%>">
+        <input type="hidden" name="id" value="<%=evento.id%>">
+        <input type="time" name="tempo" value="<%=evento.tempo%>">
+        <input type="text" name="descricao" value="<%=evento.descricao%>">
         <input type="submit">
     </form>
 </body>

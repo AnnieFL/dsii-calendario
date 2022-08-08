@@ -223,10 +223,17 @@
 
                                                         </a>
 
-                                                        <a href="/removerequipe?equipe=<%= e.dataValues.id %>" >
+                                                        <a class="btnExcluirTime" href="/removerequipe?equipe=<%= e.dataValues.id %>" >
 
                                                             <span>  Excluir Time </span>
                                                             <i class="fa-solid fa-circle-xmark"></i>
+                                                        </a>
+
+
+                                                        <a  class="btnaddCalendario" href="/equipe/<%= e.dataValues.id %>" >
+
+                                                            <span>  Adicionar Eventos </span>
+                                                            <i class="fa-solid fa-calendar-days"></i>
                                                         </a>
 
                                                     </div>

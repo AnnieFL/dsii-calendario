@@ -560,21 +560,34 @@ body{
     text-decoration: none;
 }
 
-.ContainerBtnEditarMembros > a:last-child {
+.ContainerBtnEditarMembros > .btnExcluirTime{
     background-color: #d71818;
 } 
 
 
-.ContainerBtnEditarMembros > a > span {
+.ContainerBtnEditarMembros > a  > span {
     color: white;
     font-weight: 700;
     font-size: 14px;
 }
 
+.ContainerBtnEditarMembros > .btnExcluirTime  > span {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.ContainerBtnEditarMembros > .btnExcluirTime  > i {
+    color:  white;
+    margin-left: 5px;
+}
+
+
 .ContainerBtnEditarMembros > a > i {
     color:  white;
     margin-left: 5px;
 }
+
 
 .btncriarTime {
     width: 150px;
@@ -591,6 +604,11 @@ body{
 .btncriarTime:active {
     opacity: 0.7;
 }
+
+.btnaddCalendario{
+    background-color: #23B9D2 !important;
+}
+
 
 .ContainerListaConvites {
     width: 100%;
