@@ -11,7 +11,7 @@
     <h1 class="center">Eventos de <%=equipe.nome%></h1>
     <ul>
         <%eventos.map((e) => {%>
-            <li style="color: <%=e.cor%>"><a class='nonlink' href="/evento/<%=e.id%>"><%=e.descricao%></a></li>
+            <li style="color: <%=e.cor%>"><a class='nonlink' href="evento/<%=e.id%>"><%=e.descricao%></a></li>
         <%})%>
     </ul>
     <a href="/evento/0">Criar</a>

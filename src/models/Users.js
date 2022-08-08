@@ -9,7 +9,6 @@ Users.init({
     nome: DataTypes.STRING,
     senha: DataTypes.STRING,
     foto: DataTypes.STRING,
-    empresaId: DataTypes.INTEGER
 }, { 
     sequelize: sequelizeCon, 
     schema: 'calendario',

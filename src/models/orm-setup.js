@@ -3,6 +3,7 @@ const { Users } = require("./Users");
 const { Equipes } = require("./Equipes");
 const { Eventos } = require("./Eventos");
 const { Empresas } = require("./Empresas");
+const { EquipesEmpresas } = require("./EquipesEmpresas");
 const { UsersEquipes } = require("./UsersEquipes");
 
 Equipes.belongsTo(Users, {
@@ -25,8 +26,12 @@ Empresas.belongsTo(Users, {
 });
 Users.hasMany(Empresas);
 
-Equipes.belongsTo(Empresas)
-Empresas.hasMany(Equipes);
+Empresas.belongsToMany(Equipes, {
+    through: 'equipesEmpresas'
+});
+Equipes.belongsToMany(Empresas, {
+    through: 'equipesEmpresas'
+});
 
 
 sequelizeCon.sync();

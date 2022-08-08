@@ -1,9 +1,10 @@
 const bcrypt = require('bcryptjs');
-const { Op } = require("sequelize");
 const { Users } = require("../models/Users");
 const { Equipes } = require("../models/Equipes");
 const { Eventos } = require("../models/Eventos");
+const fs = require('fs').promises
 const { Empresas } = require("../models/Empresas");
+const { EquipesEmpresas } = require("../models/EquipesEmpresas");
 const { UsersEquipes } = require("../models/UsersEquipes");
 
 
@@ -33,7 +34,7 @@ class ControllerPost {
     }
 
     async cadastro(req, res) {
-        const { nome, email, senha, empresaId } = req.body;
+        const { nome, email, senha } = req.body;
 
 
         if (email == undefined || email == "" || email.includes("@") == false) {
@@ -66,7 +67,6 @@ class ControllerPost {
             senha: senhaEncrypt
         })
 
-        
         const conta = await Users.findOne({
             where: {
                 email: email,
@@ -75,55 +75,7 @@ class ControllerPost {
 
         req.session.user = conta;
 
-        if (req.body.empresa) {
-            const UserId = await Users.findOne({
-                where: {
-                    nome: nome,
-                    email: email,
-                    senha: senhaEncrypt
-                }
-            })
-
-            return res.render('empresa', {user: UserId.id})
-        }
-
-        await Users.update({
-            empresaId: empresaId
-        }, {
-            where: {
-                nome: nome,
-                email: email,
-                senha: senhaEncrypt
-            }
-        })
-
         return res.redirect('/inicio');
-    }
-
-    async addEmpresa(req, res) {
-        const {userId, nome} = req.body;
-
-        await Empresas.create({
-            nome: nome,
-            dono: userId
-        });
-
-        const empresaId = await Empresas.findOne({
-            where: {
-                nome: nome,
-                dono: userId
-            }
-        })
-
-        await Users.update({
-            empresaId: empresaId.id
-        },{
-            where: {
-                id: userId
-            }
-        })
-
-        return res.redirect('/');
     }
 
     async addEquipe(req, res) {
@@ -133,11 +85,19 @@ class ControllerPost {
 
         const { nome, cor } = req.body;
 
+
+        if (nome == '' || nome == undefined) {
+            return res.redirect('/addequipe')
+        }
+
+        if (cor == '' || cor == undefined) {
+            return res.redirect('/addequipe')
+        }
+
         await Equipes.create({
             nome: nome,
             cor: cor,
-            dono: req.session.user.id,
-            empresaId : req.session.user.empresaId
+            dono: req.session.user.id
         })
 
         const equipe = await Equipes.findOne({
@@ -147,14 +107,14 @@ class ControllerPost {
                 dono: req.session.user.id,
             }
         })
-        
+
         await UsersEquipes.create({
             userId: req.session.user.id,
             equipeId: equipe.id,
-            ativo: true
+            aceito: true
         })
 
-        return res.redirect('/');
+        return res.redirect('/equipes');
     }
 
     async addEvento(req, res) {
@@ -163,40 +123,6 @@ class ControllerPost {
         }
 
         const { data, tempo, descricao, equipe } = req.body
-
-        const users = await UsersEquipes.findAll({
-            where: {
-                equipeId: equipe
-            }
-        })
-
-
-        const usersId = users.map((e) => (
-            e.userId
-        ))
-
-
-        const equipes = await UsersEquipes.findAll({
-            where: {
-                userId: usersId
-            }
-        })
-
-
-        const equipesId = equipes.map((e) => (
-            e.equipeId
-        ))
-
-        const eventoCheck = await Eventos.findAll({
-            where: {
-                equipeId: equipesId,
-                data: `${data} ${tempo}`
-            }
-        })
-
-        if (eventoCheck[0]) {
-            return res.redirect('/inicio?erro=erroEvento')
-        }
 
         await Eventos.create({
             data: `${data} ${tempo}`,
@@ -209,62 +135,87 @@ class ControllerPost {
         res.redirect('/');
     }
 
-    async editEvento(req, res) {
-        if (!req.session.user || !req.session.equipe) {
+    async addMembro(req, res) {
+        if (!req.session.user) {
             return res.redirect('/');
         }
 
-        const { data, tempo, descricao, id } = req.body
+        const { grupo, email } = req.body
 
-        const users = await UsersEquipes.findAll({
-            where: {
-                equipeId: req.session.equipe
-            }
-        })
-
-
-        const usersId = users.map((e) => (
-            e.userId
-        ))
-
-
-        const equipes = await UsersEquipes.findAll({
-            where: {
-                userId: usersId
-            }
-        })
-
-
-        const equipesId = equipes.map((e) => (
-            e.equipeId
-        ))
-
-        const eventoCheck = await Eventos.findAll({
-            where: {
-                equipeId: equipesId,
-                data: `${data} ${tempo}`,
-                [Op.not]: { id: id }
-            }
-        })
-
-        if (eventoCheck[0]) {
-            return res.redirect('/inicio?erro=erroEvento')
+        if (!grupo || grupo == 0) {
+            return res.redirect('/equipes')
         }
 
-        await Eventos.update({
-            data: `${data} ${tempo}`,
-            descricao: descricao
-        },
-            {
-                where: {
-                    id: id
-                }
-            })
+        if (!email || email == "") {
+            return res.redirect('/equipes')
+        }
 
-        req.session.equipe = null;
 
-        res.redirect('/');
+
+        const user = await Users.findOne({
+            where: {
+                email: email,
+            }
+        })
+
+
+        if (!user) {
+            return res.redirect('/equipes?sucesso=false')
+        }
+
+        if (req.session.user.id == user.id) {
+            return res.redirect('/equipes?dono=true')
+        }
+
+        const convite = await UsersEquipes.findOne({
+            where: {
+                userId: user.id,
+                equipeId: grupo,
+            }
+        })
+
+        if (convite) {
+            return res.redirect('/equipes?existe=true')
+        }
+
+        await UsersEquipes.create({
+            userId: user.id,
+            equipeId: grupo,
+            aceito: false
+        })
+
+        return res.redirect('/equipes?sucesso=true')
+
+
     }
+
+    async changefoto(req, res) {
+        if (!req.session.user) {
+            return res.redirect('/');
+        }
+        const {img} = req.body
+        if(img == '' || !img ) {
+            return  res.redirect('/')
+        }
+
+        const user = await Users.findOne({
+            where: {
+               id: req.session.user.id
+            }
+        })
+
+        if(!user) {
+            return  res.redirect('/')
+        }
+
+        user.foto = img
+
+        await user.save();
+
+        return  res.redirect('/meuperfil')
+    }
+
+
 }
 
 module.exports = ControllerPost;

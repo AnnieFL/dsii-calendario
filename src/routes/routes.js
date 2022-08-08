@@ -9,7 +9,7 @@ const controllerPost = new ControllerPost();
 
 routes.get('/', controllerGet.login);
 routes.get('/sair', controllerGet.sair);
-routes.get('/calendario/:id', controllerGet.calendario);
+routes.get('/calendario', controllerGet.calendario);
 routes.get('/inicio', controllerGet.index);
 routes.get('/meuperfil', controllerGet.meuPerfil);
 routes.get('/login', controllerGet.login);
@@ -17,15 +17,17 @@ routes.get('/equipes', controllerGet.equipes);
 routes.get('/equipe/:id', controllerGet.equipe);
 routes.get('/addequipe', controllerGet.addEquipe);
 routes.get('/evento/:id', controllerGet.evento);
+routes.get('/convites', controllerGet.convites);
+routes.get('/removerequipe', controllerGet.removerEquipe);
+routes.get('/sairequipe', controllerGet.sairEquipe);
+routes.get('/convite', controllerGet.convite);
 routes.get('/addevento/:id', controllerGet.addEvento);
 
 routes.post('/login', controllerPost.login)
 routes.post('/cadastro', controllerPost.cadastro)
 routes.post('/addequipe', controllerPost.addEquipe)
 routes.post('/addevento', controllerPost.addEvento)
-routes.post('/editevento', controllerPost.editEvento)
-routes.post('/addempresa', controllerPost.addEmpresa)
-
-routes.get('*', controllerGet.index);
+routes.post('/addmember', controllerPost.addMembro)
+routes.post('/changefoto', controllerPost.changefoto)
 
 module.exports = routes;

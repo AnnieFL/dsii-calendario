@@ -1,18 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    type="text/css" />
     <title>Dsii-Calendario</title>
 </head>
+
 <body>
-    <form action="/addequipe" method="post">
-        <input type="text" name="nome" placeholder="nome">
-        <input type="color" name="cor" placeholder="cor">
-        <input type="submit">
-    </form>
-    <a href='/login'>Login</a>
+    <div class="containerLogin2" > 
+    <div class="containerFormsLogin2">
+
+        <div class="containerimgInicio">
+
+            <img src="./imgs/logo_semfundo.png" alt="logo" />
+
+        </div>
+
+        <div class="msgInicio">
+
+            <span> <%= editar ? "Editar" : "Criar Times"  %> </span>
+
+        </div>
+
+        <form action="addequipe" method="post" class="">
+
+            <div>
+                <div>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <input type="text" name="nome" placeholder="nome">
+            </div>
+
+
+            <div>
+                <div>
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+               
+                <input type="color" name="cor" placeholder="cor">
+
+            </div>
+
+
+            <input type="submit" hidden id="btnir">
+        </form>
+
+
+
+        
+
+
+        <div class="btncriarTime">
+
+            <span> <%= editar ? "Editar" : "Criar"  %></span>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <script>
+
+        let btn = document.querySelector(".btncriarTime")
+        let click = document.querySelector("#btnir")
+        btn.addEventListener('click', () => {
+            click.click()
+        })
+
+    </script>
+
 </body>
+
 </html>

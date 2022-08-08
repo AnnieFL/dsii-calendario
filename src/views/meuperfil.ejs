@@ -1,17 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-    type="text/css" />
+        type="text/css" />
     <title>Dsii-Calendario</title>
 </head>
+
 <body>
+    <form action="/changefoto" method="post" hidden>
+        <input  id="url_base64"  name="img" type="text" name="base64_img"  />
+        <input hidden type="file" type="file" id="img" name="foto" accept="image/png, image/jpeg" />
+        <input hidden type="submit" id="foto" />
+    </form>
 
-    
+    <div class="ContainerMeuPerfil">
+
+        <div class="FotoMeuPerfil">
+
+            <% if(user.foto==null) { %>
+
+                <div>
+                    <span>
+                        <%= `${user.nome.slice(0,2)}`.toUpperCase() %>
+                    </span>
+                </div>
+
+
+
+                <% } else { %>
+
+
+                    <div>
+                        <img src="<%= user.foto %>">
+                    </div>
+
+                    <% } %>
+
+                        <div class="btnAddFoto">
+                            <i class="fa-solid fa-upload"></i>
+                        </div>
+
+
+        </div>
+
+
+
+        <div class="ContainerUser_Detalhe">
+
+
+            <span>
+                <%= user.nome %>
+            </span>
+
+            <span>
+                <%= user.email %>
+            </span>
+
+            <span> Usuario desde: <%= user.membrodata %> </span>
+
+        </div>
+
+
+
+        <a href="/" class="BtnVoltar">
+            <span>Voltar</span>
+        </a>
+
+
+
+
+    </div>
 
 
 
@@ -21,7 +84,28 @@
 
 
 
+    <script>
 
+        document.querySelector('.btnAddFoto').addEventListener('click', () => {
+
+            document.querySelector('#img').click()
+            document.querySelector('#img').addEventListener('change', async() => {
+                if (document.querySelector('#img').value != null) {
+                    const file = document.querySelector('#img').files[0];
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        console.log(reader.result);
+                        document.querySelector('#url_base64').value = reader.result
+                        document.querySelector('#foto').click()
+
+                    };
+                    reader.readAsDataURL(file);
+                }
+            })
+        })
+
+    </script>
 
 </body>
+
 </html>

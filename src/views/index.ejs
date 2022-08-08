@@ -21,45 +21,20 @@
 
             <img src="./imgs/logo_semfundo.png" alt="logo" />
 
-            
+
+
         </div>
-        
+
         <div class="msgInicio">
-            
+
             <span> Seja Bem Vindo(a), <%= user.nome %> </span>
-            
+
             <a href="/sair"> Desconectar</a>
-            
-            <% if (erro=='erroEvento' ) { %>
-            
-                <span class="errospan red"> <h2>Data do evento está em conflito</h2></span>
-            
-                <% } %>
-        </div>
-
-
-        <div class="containerPesquisaInicio">
-
-            <form action="pesquisarUser" method="post">
-
-
-
-                <input type="text" name="search" placeholder="Pesquisar Usuarios..." />
-
-                <div>
-
-                    <i class="fa-solid fa-magnifying-glass"></i>
-
-                </div>
-
-
-
-                <input type="submit" hidden id="btnForm" />
-
-            </form>
-
 
         </div>
+
+
+   
 
 
 
@@ -98,7 +73,7 @@
 
 
 
-            <a href="/calendario/<%=user.id%>">
+            <a href="/calendario">
 
 
                 <i class="fa-solid fa-calendar-days"></i>
@@ -108,12 +83,10 @@
 
 
 
-
-
             </a>
 
 
-            <a href="/meuperfil">
+            <a href="/convites">
 
 
                 <i class="fa-solid fa-paper-plane"></i>

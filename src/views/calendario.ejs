@@ -10,8 +10,7 @@
 </head>
 
 <body>
-    <h1 class="center">Calendario de <%=userPrincipal.nome%></h1>
-    <h2 class="center"><%=mes%></h2>
+    <h1 class="center">Calendario</h1>
         <div class="containerCalendario">
             <table class="calendario">
                 <tr>
@@ -28,7 +27,7 @@
                         <tr>
                     <%}%>
                     <td class="<%=dias[i].class%><%if (dias[i].evento) {%>" style="background-color:<%=dias[i].evento.cor%>"<%}%>">
-                            <%if (dias[i].evento) {%><a class='nonlink' href="/evento/<%=dias[i].evento.dataValues.id%>"><%}%>
+                            <%if (dias[i].evento) {%><a href="/evento/<%=dias[i].evento.dataValues.id%>"><%}%>
                             <%=dias[i].dia%>
                             <%if (dias[i].evento) {%></a><%}%>
                         </td>

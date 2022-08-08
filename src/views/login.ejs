@@ -41,101 +41,86 @@
                         </div>
                         <input type="password" name="senha" placeholder="senha">
                     </div>
-                    <% if (erro=='errologin' ) { %>
-
-                        <span class="errospan"> Senha e Email não conferem </span>
+                    <% if (erro == 'errologin') { %>
+                                
+                        <span class="errospan"> Senha e Email não conferem  </span>  
 
                         <% } %>
-                            <input type="submit" id="btnForm">
+                    <input type="submit" id="btnForm">
                 </form>
                 <%} else {%>
                     <form action="cadastro" method="post">
-                        <div>
+                        <div> 
                             <div>
                                 <i class="fa-solid fa-user"></i>
                             </div>
-                            <input type="text" name="nome" placeholder="nome">
+                        <input type="text" name="nome" placeholder="nome">
                         </div>
-                        <% if (erro=='nome' ) { %>
-
-                            <span class="errospan"> Nome inválido ou não inserido </span>
+                        <% if (erro == 'nome') { %>
+                                
+                            <span class="errospan"> Nome inválido ou não inserido  </span>  
 
                             <% } %>
-                                <div>
-                                    <div>
-                                        <i class="fa-solid fa-at"></i>
-                                    </div>
-                                    <input type="email" name="email" placeholder="email">
-
-                                </div>
-                                <% if (erro=='email' ) { %>
-
-                                    <span class="errospan"> Email inválido ou não inserido </span>
-
-                                    <% } %>
-                                        <% if (erro=='jaexiste' ) { %>
-
-                                            <span class="errospan"> Email já utilizado! </span>
-
-                                            <% } %>
-                                                <div>
-                                                    <div>
-                                                        <i class="fa-solid fa-asterisk"></i>
-                                                    </div>
-                                                    <input type="password" name="senha" placeholder="senha">
-                                                </div>
-
-                                                <% if (erro=='senha' ) { %>
-
-                                                    <span class="errospan"> Senha não inserida </span>
-
-                                                    <% } %>
-                                                    Empresa
-                                                        <div>
-                                                            <div>
-                                                                <i class="fa-solid fa-asterisk"></i>
-                                                            </div>
-                                                            <select id='empresa' name="empresaId">
-                                                                <%empresas.map((e) => {%>
-                                                                    <option value="<%=e.id%>"><%=e.nome%></option>
-                                                                <%})%>
-                                                            </select>
-                                                        </div>
-
-                                                        <label for="empresa">Criar empresa?</label>
-                                                        <input type="checkbox" onclick="blockEmpresa()" name="empresa">
-                                                        <input type="submit" id="btnForm">
-                    </form>
-
-                    <%}%>
-
-
-
-                        <div class="ButaoFormLoginRegistro">
-                            <span>
-                                <%= login ? "Entrar" : "Registrar - se" %>
-                            </span>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-at"></i>
+                            </div>
+                            <input type="email" name="email" placeholder="email">
+                           
                         </div>
+                        <% if (erro == 'email') { %>
+                                
+                            <span class="errospan"> Email inválido ou não inserido  </span>  
 
-                        <% if(login) { %>
+                            <% } %>
+                            <% if (erro == 'jaexiste') { %>
+                                
+                                <span class="errospan"> Email já utilizado!  </span>  
+            
+                                <% } %>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-asterisk"></i>
+                            </div>
+                            <input type="password" name="senha" placeholder="senha">
+                        </div>
+                        <% if (erro == 'senha') { %>
+                                
+                            <span class="errospan"> Senha não inserida  </span>  
+
+                            <% } %>
+                        <input type="submit" id="btnForm">
+                    </form>
+                    
+                <%}%>
+
+    
+
+                    <div class="ButaoFormLoginRegistro">
+                         <span>
+                             <%= login ? "Entrar" : "Registrar - se" %>
+                        </span>
+                    </div>
+
+                    <% if(login) { %>
+
+                        <div class="containerMsgFinal">
+
+                            <span> Não tem Login? </span>
+                            <a href='/login?cadastro'>Registrar-se</a>
+
+                        </div>
+                    
+                        <% }else { %>
 
                             <div class="containerMsgFinal">
 
-                                <span> Não tem Login? </span>
-                                <a href='/login?cadastro'>Registrar-se</a>
+                                <span>Já tem Login? </span>
+                                <a href='/login'>Logue-se</a>
 
                             </div>
 
-                            <% }else { %>
-
-                                <div class="containerMsgFinal">
-
-                                    <span>Já tem Login? </span>
-                                    <a href='/login'>Logue-se</a>
-
-                                </div>
-
-                                <% } %>
+                            <% } %>
 
 
         </div>
@@ -151,12 +136,6 @@
         click.addEventListener('click', () => {
             btn.click()
         })
-
-        blockEmpresa = () => {
-            let select = document.getElementById('empresa');
-
-            select.disabled = !select.disabled;
-        }
 
     </script>
 

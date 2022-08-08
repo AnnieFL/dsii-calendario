@@ -1,18 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        type="text/css" />
     <title>Dsii-Calendario</title>
 </head>
+
 <body>
-    <h1 class="center">Equipes de <%=user.nome%></h1>
-    <ul>
-        <%equipes.map((e) => {%>
-            <li style="color: <%=e.cor%>"><a class='nonlink' href="/equipe/<%=e.id%>"><%=e.nome%></a></li>
-        <%})%>
-    </ul>
+
+    <% if( erro == 'dono' ) { %>
+        
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+            <strong>Falha ao Adicionar!</strong> Você é o dono do grupo.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+
+        <% }%>
+
+        
+    <% if( erro == 'existe' ) { %>
+        
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+            <strong>Falha ao Adicionar!</strong> Usuario Já Tem Convite Pendente
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+
+        <% }%>
+
+        <% if( erro == 'true' ) { %>
+        
+            <div class="alert alert-success  alert-dismissible fade show" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                  </svg>
+                <strong>Sucesso ao Adicionar!</strong> Convite enviado com Sucesso!.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+    
+    
+            <% }%>
+
+            <% if( erro == 'false' ) { %>
+        
+                <div class="alert alert-danger   alert-dismissible fade show" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                      </svg>
+                    <strong>Erro ao Adicionar!</strong> Usuario não encontrado!.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+        
+        
+                <% }%>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Membro:</h5>
+                    <h5 class="modal-title"   style="margin-left:5px" id="name_time"> </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/addmember" method="post">
+
+                        <input value="0" name="grupo" hidden  id="id_time" />
+                       
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Email do usuario:</label>
+                            <input type="email" class="form-control" id="recipient-name" name="email">
+                        </div>
+
+                        <input type="submit" id="btnAddMembro" hidden />
+
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
+                    <button type="button" class="btn btn-primary" id="enviarConvite">Enviar Convite</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ContainerMeusTimes">
+
+
+        <a href="/" class="containerimgInicio">
+
+
+
+            <img src="./imgs/logo_semfundo.png" alt="logo" />
+
+
+
+        </a>
+
+
+
+        <div class="msgInicio">
+
+            <span> Meus Times </span>
+
+        </div>
+
+
+        <div class="containerBtnCriarTime">
+
+            <a href="/addequipe">
+                <span>Criar Time</span>
+            </a>
+
+        </div>
+
+
+
+        <div class="container">
+            <div class="accordion" id="accordionExample">
+                <%equipes.map((e)=> {%>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button style="color:<%= e.dataValues.cor %>" class="accordion-button" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#a<%=e.dataValues.id%>" aria-expanded="true"
+                                aria-controls="a<%= e.dataValues.id %>">
+                                <%= e.dataValues.nome %>
+                            </button>
+                        </h2>
+                        <div id="a<%=e.dataValues.id %>" class="accordion-collapse collapse "
+                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+
+                                <div class="containerMembros">
+
+                                    <span>Membros Do Grupo</span>
+
+                                    <div>
+
+                                        <%e.users.map((users_real)=> {%>
+                                            <div class="containerUserFoto">
+                                                <div> 
+                                                <% if(users_real.foto==null) { %>
+
+                                                    <div class="logo">
+                                                        <span>
+                                                            <%= `${users_real.nome.slice(0,2)}`.toUpperCase() %>
+                                                        </span>
+                                                    </div>
+
+                                                    <%}else { %>
+
+
+                                                        <div class="logo">
+                                                            <img src="<%= users_real.foto  %>" />
+
+                                                        </div>
+
+                                                        <%} %>
+
+                                                            <span>
+
+                                                                <%= users_real.nome %>
+
+                                                            </span>
+
+
+                                                           
+
+                                                            <% if(users_real.id == e.dataValues.dono) { %>
+
+                                                                <i class="fa-solid fa-crown"
+                                                                    style="color: gold ; margin-left:5px"></i>
+
+
+                                                                <% } %>
+                                                            </div>
+
+                                                                <div class="ContainerUserdata_cricao">
+                                                                   
+                                                                    <span>Membro desde:</span>  
+                                                                  
+                                                                   <span> <%= users_real.membrodata %> </span>
+                                                                    
+                                                                </div>
+    
+
+                                            </div>
+                                            <%})%>
+
+
+
+                                            <% if (e.dataValues.dono==user.id) { %>
+
+
+                                                    <div class="ContainerBtnEditarMembros">
+
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            id="<%= e.dataValues.id %>"
+                                                            name="<%= e.dataValues.nome %>"
+                                                            data-bs-target="#exampleModal">
+
+                                                            <span> Adicionar Membro </span> 
+                                                            <i class="fa-solid fa-circle-plus"></i>
+
+                                                        </a>
+
+                                                        <a href="/removerequipe?equipe=<%= e.dataValues.id %>" >
+
+                                                            <span>  Excluir Time </span>
+                                                            <i class="fa-solid fa-circle-xmark"></i>
+                                                        </a>
+
+                                                    </div>
+
+
+                                                   
+
+
+                                                    <% }%>
+
+
+                                                    <% if (e.dataValues.dono != user.id) { %>
+
+                                                        <div class="ContainerBtnEditarMembros">
+    
+                                                            <a href="/sairequipe?equipe=<%= e.dataValues.id %>" >
+    
+                                                                <span> Sair do Time </span>
+                                                                <i class="fa-solid fa-circle-xmark"></i>
+                                                            </a>
+    
+                                                        </div>
+    
+    
+                                                       
+    
+    
+                                                        <% }%>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <%})%>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+        <script >
+            let BtnAddmember = document.querySelectorAll('.ContainerBtnEditarMembros')
+            let btnEnviarConvite = document.querySelector('#enviarConvite')
+            
+            btnEnviarConvite.addEventListener('click', () => {
+                document.querySelector('#btnAddMembro').click()
+            })
+            BtnAddmember.forEach(btn => {
+
+                btn.addEventListener('click', (e) => {
+
+                    document.querySelector('#name_time').textContent = btn.children[0].name;
+                    document.querySelector('#id_time').value = btn.children[0].id;
+
+                })
+
+            })
+
+
+
+        </script>
+
 </body>
+
 </html>

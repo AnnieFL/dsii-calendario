@@ -2,7 +2,6 @@
     text-align: center;
 }
 
-
 .containerCalendario {
     display: flex;
     flex-direction: row;
@@ -33,14 +32,13 @@
 
 .hoje {
     font-weight: bolder;
-    text-decoration: underline;
 }
 
 
 /*  css adicionado por Luan  */
 
 input:focus-visible {
-    
+
     outline: none
 } 
 body{
@@ -48,7 +46,10 @@ body{
     min-height: 100vh;
     min-width: 100vw;
 }
-
+.alert {
+    width: 100%;
+    position: absolute;
+}
 
 .errospan {
     margin-top: -8px;
@@ -62,6 +63,16 @@ body{
     flex: 1;
     min-width: 100vw;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.containerLogin2 {
+    flex: 1;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #1FB5CE;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,6 +101,18 @@ body{
     align-items: center;
 }
 
+
+.containerFormsLogin2 {
+    width: 29%;
+    padding: 10px;
+    min-width: 250px;
+    border-radius: 15px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .containerTitutloForm{
     height: 50px;
     justify-content: center;
@@ -103,6 +126,7 @@ body{
     color: #44B5C8;
     font-family: 'heveric';
 }
+
 
 .containerFormsLogin > form > #btnForm {
     display: none;
@@ -152,6 +176,56 @@ body{
 }
 
 
+
+.containerFormsLogin2 > form > #btnForm {
+    display: none;
+}
+
+.containerFormsLogin2 > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerFormsLogin2 > form > div {
+    display: flex;
+    width: 72%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.containerFormsLogin2 > form > div > :first-child {
+    background-color: #FF3847;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.containerFormsLogin2 > form > div > :first-child > i {
+    font-size: 24px;
+    color: white;
+} 
+
+.containerFormsLogin2 > form > div > :last-child {
+
+    height: 37px;
+    width: 82%;
+    border: 3px solid #FF3847 ;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
+
 .ButaoFormLoginRegistro {
 
     width: 60%;
@@ -193,14 +267,14 @@ body{
 
 
 .containerInicio {
-    
+
     background-color: #23B9D2;
     width: 100vw;
     min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
-    
+   
 }
 
 
@@ -265,7 +339,7 @@ body{
     margin-right: -5px;
     cursor: pointer;
     user-select: none;
-    
+
 }
 
 .containerPesquisaInicio > form > div > i {
@@ -273,10 +347,8 @@ body{
     font-size: 20px;
 }
 
-
 .containerPesquisaInicio > form > div:active {
-    opacity: 0.7;
-    
+        opacity: 0.7;
 }
 
 .msgInicio {
@@ -311,12 +383,12 @@ body{
     align-content: space-between;
     flex-direction: row;
     flex-wrap: wrap;
-    
+
 }
 
 
 .containerMenusInicio > a {
-    
+
     width: 45%;
     display: flex;
     flex-direction: column;
@@ -335,7 +407,7 @@ body{
 
 
 .containerMenusInicio > a > span {
-    
+
     color: white;
     font-size: 18px;
     font-weight: 700;
@@ -348,10 +420,345 @@ body{
     margin-bottom: 20px;
 }
 
-.red {
-    color: red !important;
+.ContainerMeusTimes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #1FB5CE;
 }
 
-.tdLink {
+.containerBtnCriarTime {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerBtnCriarTime > a{
+    margin-top: 10px;
+    width: 150px;
+    height: 45px;
+    background-color: #FF3847;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
     cursor: pointer;
+    user-select: none;
+}
+
+.containerBtnCriarTime > a > span {
+    color: white;
+}
+
+.containerBtnCriarTime > a:active {
+    opacity: 0.7;
+}
+
+.accordion-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.containerMembros {
+
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.containerMembros > :first-child {
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.containerMembros > :last-child {
+    width: 100%;
+    flex-direction: column;
+}
+
+
+
+.containerUserFoto{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.containerUserFoto > div:first-child{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    background-color: #d71818;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.logo > span {
+
+    color: #FFF;
+    font-weight: 800;
+
+}
+
+.logo > img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+
+.ContainerBtnEditarMembros {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ContainerBtnEditarMembros > a {
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-width: 180px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    background-color: #15a131;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.ContainerBtnEditarMembros > a:last-child {
+    background-color: #d71818;
+} 
+
+
+.ContainerBtnEditarMembros > a > span {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.ContainerBtnEditarMembros > a > i {
+    color:  white;
+    margin-left: 5px;
+}
+
+.btncriarTime {
+    width: 150px;
+    height: 35px;
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btncriarTime:active {
+    opacity: 0.7;
+}
+
+.ContainerListaConvites {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.ContainerConvites {
+
+    display: flex;
+    flex-direction: row;
+    height: 55px;
+    align-items: center;
+    background-color: #ffffff;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5%;
+
+}
+
+.ContainerConvites > div:first-child {
+
+    width: 80%;
+
+}
+
+.ContainerConvites > div:last-child {
+
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.ContainerConvites > div:last-child > div {
+    width: 50%;
+
+}
+
+.ContainerConvites > div:last-child > div:first-child > a > i {
+    color: green;
+}
+
+.ContainerConvites > div:last-child > div:last-child > a > i {
+    color: red;
+}
+
+
+.ContainerMeuPerfil {
+    background-color: #1FB5CE;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.FotoMeuPerfil {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.FotoMeuPerfil > div:first-child {
+
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+
+}
+
+.FotoMeuPerfil > div:first-child  > span  {
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: #1FB5CE;
+}
+
+.FotoMeuPerfil > div:first-child  > img  {
+    height: 180px;
+    width: 180px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+
+.FotoMeuPerfil > div:last-child {
+
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background-color: #FF3847;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 40px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.FotoMeuPerfil > div:last-child > i  {
+    color: white;
+}
+
+.ContainerUser_Detalhe {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ContainerUser_Detalhe > span {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: white;
+    font-family: 600;
+    letter-spacing: 0.5px;
+    font-size: 24px;
+}
+
+.BtnVoltar {
+    margin-top: 20px;
+    width: 150px;
+    height: 45px;
+    background-color: #FF3847;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+
+
+.ContainerUserdata_cricao {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ContainerUserdata_cricao > span:first-child {
+    font-size: 10px;
+    color: #787878;
+
+}
+
+.ContainerUserdata_cricao > span:last-child {
+    font-size: 10px;
+    color: #787878;
+    margin-left: 5px;
+    
 }
