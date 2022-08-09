@@ -9,7 +9,7 @@
     <title>Dsii-Calendario</title>
 </head>
 
-<body>
+<body class="containerInicio">
     <h1 class="center">Calendario de <%=userPrincipal.nome%></h1>
     <h2 class="center"><%=mes%></h2>
         <div class="containerCalendario">
@@ -37,6 +37,10 @@
                     <%}%>
                 <%}%>
             </table>
+        </div>
+        <div class="outrosMeses">
+            <a href="/calendario/<%=idParam%>?mes=<%=(parseInt(mesQuery)-1)%>">< Mês anterior</a>
+            <a href="/calendario/<%=idParam%>?mes=<%=(parseInt(mesQuery)+1)%>">Próximo mês ></a>
         </div>
 </body>
 

@@ -6,7 +6,8 @@ class Eventos extends Model {}
     
 Eventos.init({
     descricao: DataTypes.STRING,
-    data: DataTypes.DATE
+    data: DataTypes.DATE,
+    periodo: DataTypes.STRING
 }, { 
     sequelize: sequelizeCon, 
     schema: 'calendario',

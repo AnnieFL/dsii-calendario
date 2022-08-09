@@ -249,7 +249,8 @@ class ControllerPost {
         const eventoCheck = await Eventos.findAll({
             where: {
                 equipeId: equipesId,
-                data: `${data} ${tempo}`,
+                data: `${data}`,
+                periodo: periodo,
                 [Op.not]: { id: id }
             }
         })

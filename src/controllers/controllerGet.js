@@ -54,13 +54,19 @@ class ControllerGet {
         const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
         const {id} = req.params;
-        
+        let {mes} = req.query;
+
+        if (!mes) {
+            mes = 0;
+        }
+
         let data = new Date()
         let month = data.getMonth();
-        month += 1;
+        month += 1 + parseInt(mes);
         let year = data.getFullYear();
         
         data.setDate(1);
+        data.setMonth((data.getMonth()+parseInt(mes)))
         
         const usersEquipes = await UsersEquipes.findAll({
             where: {
@@ -109,13 +115,13 @@ class ControllerGet {
         
         const ultimoDia = new Date(
             data.getFullYear(),
-            data.getMonth() + 1,
+            data.getMonth()+1,
             0
         ).getDate();
 
         const ultimoDiaAnterior = new Date(
             data.getFullYear(),
-            data.getMonth(),
+            data.getMonth()+1,
             0
         ).getDate();
 
@@ -123,7 +129,7 @@ class ControllerGet {
 
         const ultimoDiaIndex = new Date(
             data.getFullYear(),
-            data.getMonth() + 1,
+            data.getMonth()+1,
             0
         ).getDay();
 
@@ -166,10 +172,8 @@ class ControllerGet {
                 class: 'mesSeguinte'
             });
         }
-
-
-
-        return res.render('calendario', { user: req.session.user, dias: dias, userPrincipal: userPrincipal, mes: meses[parseInt(dayjs(data).format('M'))-1] });
+        console.log(month)
+        return res.render('calendario', { user: req.session.user, dias: dias, userPrincipal: userPrincipal, mes: meses[month-1], mesQuery: mes, idParam: id });
     }
 
 
@@ -403,6 +407,10 @@ class ControllerGet {
                 id: id
             }
         })
+
+        if (!evento) {
+            return res.redirect('/');
+        }
 
         evento.tempo = dayjs(evento.data).format('hh:mm')
         evento.date = dayjs(evento.data).format('YYYY-MM-DD')
