@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,30 +8,71 @@
     <link rel="stylesheet" href="/main.css">
     <title>Dsii-Calendario</title>
 </head>
+
 <body>
     <%if (evento) {%>
-    <h1 class="center">Eventos de <%=equipe.nome%></h1>
+        <h1 class="center">Eventos de <%=equipe.nome%>
+        </h1>
 
-    <div>
-        <p><%=evento.data%></p>
-        <p><%=evento.descricao%></p>
-        <%if (equipe.dono == user.id) {%>
-            <a href="/addevento/<%=evento.id%>">Editar</a>
-        <%}%>
-    </div>
-    <%} else {%>
-        <form action="/addevento" method="post">
-            <input type="date" name="data">
-            <input type="time" name="tempo">
-            <input type="text" name="descricao">
-            <select name="equipe">
-                <%equipes.map((e) => {%>
-                    <option value="<%=e.id%>"><%=e.nome%></option>
-                <%})%>
-            </select>
-            <input type="submit">
-        </form>
-    <%}%>
-        
+        <div>
+            <p>
+                <%=evento.data%>
+            </p>
+            <p>
+                <%=evento.descricao%>
+            </p>
+            <%if (equipe.dono==user.id) {%>
+                <a href="/addevento/<%=evento.id%>">Editar</a>
+                <%}%>
+        </div>
+        <%} else {%>
+            <div class="containerLogin">
+                <div class="containerImgLogin">
+
+                    <img src="./imgs/logo_fundobranco.png" alt="logo" />
+
+                </div>
+
+                <div class="containerFormsLogin">
+
+                    <div class="containerTitutloForm">
+                        <span>
+                            Editar Evento: <%=evento.descricao%>
+                        </span>
+                    </div>
+
+                    <form action="/editevento" method="post">
+                        <input type="hidden" name="id" value="<%=evento.id%>">
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-at"></i>
+                            </div>
+
+                            <input type="text" name="descricao" value="<%=evento.descricao%>">
+                        </div>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-at"></i>
+                            </div>
+                            <input type="date" name="data" value="<%=evento.date%>">
+                        </div>
+                        <div>
+                            <div>
+                                <i class="fa-solid fa-asterisk"></i>
+                            </div>
+                            <select name="periodo">
+                                <option value="manha">Manhã</option>
+                                <option value="tarde">Tarde</option>
+                                <option value="noite">Noite</option>
+                            </select>
+                        </div>
+
+                        <input type="submit" id="btnForm">
+                    </form>
+                </div>
+            </div>
+            <%}%>
+
 </body>
+
 </html>

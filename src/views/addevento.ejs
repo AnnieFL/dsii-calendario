@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +8,65 @@
     <link rel="stylesheet" href="/main.css">
     <title>Dsii-Calendario</title>
 </head>
+
 <body>
-    <h1 class="center"><%=evento.descricao%></h1>
+    <div class="containerLogin">
+        <div class="containerImgLogin">
+
+            <img src="./imgs/logo_fundobranco.png" alt="logo" />
+
+        </div>
+
+        <div class="containerFormsLogin">
+
+            <div class="containerTitutloForm">
+                <span>
+                    Editar Evento: <%=evento.descricao%>
+                </span>
+            </div>
+
+            <form action="/editevento" method="post">
+                <input type="hidden" name="id" value="<%=evento.id%>">
+                <div>
+                    <div>
+                        <i class="fa-solid fa-at"></i>
+                    </div>
+
+                    <input type="text" name="descricao" value="<%=evento.descricao%>">
+                </div>
+                <div>
+                    <div>
+                        <i class="fa-solid fa-at"></i>
+                    </div>
+                    <input type="date" name="data" value="<%=evento.date%>">
+                </div>
+                <div>
+                    <div>
+                        <i class="fa-solid fa-asterisk"></i>
+                    </div>
+                    <select name="periodo">
+                        <option value="manha">Manhã</option>
+                        <option value="tarde">Tarde</option>
+                        <option value="noite">Noite</option>
+                    </select>
+                </div>
+
+                <input type="submit" id="btnForm">
+            </form>
+        </div>
+    </div>
+
+    <!--<h1 class="center"><%=evento.descricao%></h1>
     <form action="/editevento" method="post">
         <input type="date" name="data" value="<%=evento.date%>">
         <input type="hidden" name="id" value="<%=evento.id%>">
-        <input type="time" name="tempo" value="<%=evento.tempo%>">
-        <input type="text" name="descricao" value="<%=evento.descricao%>">
+        <select name="periodo">
+            <option value="manha">Manhã</option>
+            <option value="tarde">Tarde</option>
+            <option value="noite">Noite</option>
+        </select>
         <input type="submit">
-    </form>
+    </form>-->
 </body>
+
 </html>
