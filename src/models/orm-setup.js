@@ -6,6 +6,8 @@ const { Empresas } = require("./Empresas");
 const { EquipesEmpresas } = require("./EquipesEmpresas");
 const { UsersEquipes } = require("./UsersEquipes");
 
+await Eventos.sync({force: true})
+
 Equipes.belongsTo(Users, {
     foreignKey: 'dono'
 });
