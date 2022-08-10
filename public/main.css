@@ -789,3 +789,10 @@ body{
     margin-left: 5px;
     
 }
+
+ul {
+    list-style-type: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px;
+}

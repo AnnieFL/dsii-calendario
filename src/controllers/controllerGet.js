@@ -172,8 +172,7 @@ class ControllerGet {
                 class: 'mesSeguinte'
             });
         }
-        console.log(month)
-        return res.render('calendario', { user: req.session.user, dias: dias, userPrincipal: userPrincipal, mes: meses[month-1], mesQuery: mes, idParam: id });
+        return res.render('calendario', { user: req.session.user, dias: dias, userPrincipal: userPrincipal, mes: meses[month-1], mesQuery: mes, idParam: id, mesView: month, anoView: year });
     }
 
 
@@ -359,6 +358,11 @@ class ControllerGet {
         }
         const { id } = req.params;
 
+        let {data} = req.query;
+        
+        if (!data) {
+            data = "";
+        }
 
         if (id == 0) {
             const usersEquipes = await UsersEquipes.findAll({
@@ -375,7 +379,7 @@ class ControllerGet {
                 }
             })
 
-            return res.render('evento', { user: req.session.user, equipes: equipes, evento: false })
+            return res.render('evento', { user: req.session.user, equipes: equipes, evento: false, data: data })
         }
 
         const evento = await Eventos.findOne({
@@ -392,7 +396,7 @@ class ControllerGet {
         })
 
 
-        return res.render('evento', { user: req.session.user, equipe: equipe, evento: evento });
+        return res.render('evento', { user: req.session.user, equipe: equipe, evento: evento, data:data });
 
     }
 

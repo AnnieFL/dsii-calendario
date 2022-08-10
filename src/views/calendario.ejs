@@ -28,9 +28,9 @@
                         <tr>
                     <%}%>
                     <td class="<%=dias[i].class%><%if (dias[i].evento) {%>" style="background-color:<%=dias[i].evento.cor%>"<%}%>">
-                            <%if (dias[i].evento) {%><a class='nonlink' href="/evento/<%=dias[i].evento.dataValues.id%>"><%}%>
-                            <%=dias[i].dia%>
-                            <%if (dias[i].evento) {%></a><%}%>
+                            <%if (dias[i].evento) {%><a class='nonlink' href="/evento/<%=dias[i].evento.dataValues.id%>"><%} else {%>
+                                <a class='nonlink' href="/evento/0?data=<%=`${anoView}`%>-<%if (mesView.length > 1) {%><%= mesView %><%} else {%><%=`0${mesView}`%>-<%}%><% if (dias[i].dia.length > 1) {%><%=dias[i].dia%><%} else {%><%=`0${dias[i].dia}`%><%}%>"><%}%>
+                            <%=dias[i].dia%></a>
                         </td>
                     <%if (i+1%7 == 0) {%>
                         </tr>    

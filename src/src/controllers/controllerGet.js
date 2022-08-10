@@ -39,8 +39,7 @@ class ControllerGet {
             erro = req.query.erro;
         }
 
-
-        return res.render('login', { login: login, erro: erro });
+        return res.render('login', { login: login, erro: erro, empresas: empresas });
     }
 
     async calendario(req, res) {

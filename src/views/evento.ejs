@@ -5,31 +5,112 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    type="text/css" />
     <title>Dsii-Calendario</title>
 </head>
 <body>
     <%if (evento) {%>
-    <h1 class="center">Eventos de <%=equipe.nome%></h1>
+        <div class="ContainerMeusTimes">
 
-    <div>
-        <p><%=evento.data%></p>
-        <p><%=evento.descricao%></p>
-        <%if (equipe.dono == user.id) {%>
-            <a href="/addevento/<%=evento.id%>">Editar</a>
-        <%}%>
-    </div>
+
+            <a href="/" class="containerimgInicio">
+    
+    
+    
+                <img src="../imgs/logo_semfundo.png" alt="logo" />
+    
+    
+    
+            </a>
+            
+    
+    
+            <div class="msgInicio">
+                
+                <span> <%=evento.descricao%> 
+                    - <%=new Date(evento.data).getDate()  + "/" + (new Date(evento.data).getMonth()+1) + "/" + new Date(evento.data).getFullYear()%>
+                    - <%=evento.periodo%></span>
+                
+            </div>
+    
+    
+            <%if (equipe.dono == user.id) {%>
+            <div class="containerBtnCriarTime">
+    
+                <a href="/addevento/<%=evento.id%>">
+                    <span>Editar</span>
+                </a>
+    
+            </div>
+            <%}%>
+    
     <%} else {%>
-        <form action="/addevento" method="post">
-            <input type="date" name="data">
-            <input type="time" name="tempo">
-            <input type="text" name="descricao">
-            <select name="equipe">
-                <%equipes.map((e) => {%>
-                    <option value="<%=e.id%>"><%=e.nome%></option>
-                <%})%>
-            </select>
-            <input type="submit">
-        </form>
+        <div class="containerLogin2">
+            <div class="containerFormsLogin2">
+    
+                <div class="containerimgInicio">
+    
+                    <img src="../imgs/logo_semfundo.png" alt="logo" />
+    
+                </div>
+    
+                <div class="msgInicio">
+    
+                    <span>Criar Evento</span>
+    
+                </div>
+    
+                <form action="/addevento" method="post" class="">
+                    
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <input type="text" name="descricao" placeholder="descricao">
+                    </div>
+    
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <input type="date" name="data" value="<%=data%>">
+                    </div>
+    
+    
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+    
+                        <select name="periodo" >
+                            <option value="manha">Manhã</option>
+                            <option value="tarde">Tarde</option>
+                            <option value="noite">Noite</option>
+                        </select>
+    
+                    </div>
+
+                    <div>
+                        <div>
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+    
+                        <select name="equipe" >
+                            <%equipes.map((e) => {%>
+                                <option value="<%=e.id%>"><%=e.nome%></option>
+                            <%})%>
+                        </select>
+    
+                    </div>
+    
+    
+                    <input type="submit" value="Criar" />
+                </form>
+    
+            </div>
+    
+        </div>
     <%}%>
         
 </body>

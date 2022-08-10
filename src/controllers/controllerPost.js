@@ -123,11 +123,12 @@ class ControllerPost {
             return res.redirect('/');
         }
 
-        const { data, tempo, descricao, equipe } = req.body
+        const { data, descricao, periodo, equipe } = req.body
 
         await Eventos.create({
-            data: `${data} ${tempo}`,
+            data: data,
             descricao: descricao,
+            periodo: periodo,
             equipeId: equipe
         })
 
@@ -221,7 +222,7 @@ class ControllerPost {
             return res.redirect('/');
         }
 
-        const { data, tempo, descricao, id } = req.body
+        const { data, periodo, descricao, id } = req.body
 
         const users = await UsersEquipes.findAll({
             where: {
@@ -249,7 +250,7 @@ class ControllerPost {
         const eventoCheck = await Eventos.findAll({
             where: {
                 equipeId: equipesId,
-                data: `${data}`,
+                data: data,
                 periodo: periodo,
                 [Op.not]: { id: id }
             }
@@ -260,8 +261,9 @@ class ControllerPost {
         }
 
         await Eventos.update({
-            data: `${data} ${tempo}`,
-            descricao: descricao
+            data: data,
+            descricao: descricao,
+            periodo: periodo
         },
             {
                 where: {
